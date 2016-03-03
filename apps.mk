@@ -1,13 +1,12 @@
 
 define gradlebuild
-#make it phony so its always built
-.PHONY: $(1)
 
-$(1):
+$(1): $(call all-java-files-under,$(2))
 	cd $(2) && \
+	git submodule init && \
+	git submodule foreach 'git remote prune origin' && \
 	git submodule foreach 'git fetch' && \
 	git submodule foreach 'git clean -d -x -f' && \
-	git submodule init && \
 	git submodule update && \
 	./gradlew clean assemble
 
@@ -40,9 +39,15 @@ $(eval $(call gradlebuild,\
 	))
 
 $(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libz500-release.apk, \
+	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libzArgon-release.apk, \
 	$(LOCAL_PATH)/LIBZHome, \
-	LIBZHome \
+	SciapsLIBZHomeZ500 \
+	))
+
+$(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-xrf-release.apk, \
+	$(LOCAL_PATH)/LIBZHome, \
+	SciapsXRFHome \
 	))
 
 $(eval $(call gradlebuild,\
