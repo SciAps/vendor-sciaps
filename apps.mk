@@ -72,9 +72,9 @@ $(eval $(call gradlebuild,\
 	SciapsLIBZHomeZ500 \
 	))
 
-$(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-xrf-release.apk, \
-	$(LOCAL_PATH)/LIBZHome, \
+$(eval $(call downloadapk,\
+	http://jenkins2.sciaps.local/jenkins/job/SciapsHome/lastStableBuild/artifact/app/build/outputs/apk/app-xrf-release.apk, \
+	$(LOCAL_PATH)/SciapsHome-XRF.apk, \
 	SciapsXRFHome \
 	))
 
