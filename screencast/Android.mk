@@ -30,6 +30,7 @@ LOCAL_C_INCLUDES += \
 	frameworks/av/media/libstagefright \
 	frameworks/av/media/libstagefright/include \
 	$(TOP)/frameworks/native/include/media/openmax \
-	external/jpeg
+	external/jpeg \
+	hardware/ti/domx/omx_core/inc
 
 include $(BUILD_EXECUTABLE)
