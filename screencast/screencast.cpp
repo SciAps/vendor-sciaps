@@ -129,7 +129,7 @@ static status_t argb8888ToTIYUV420PackedSemiPlanar(const void* srcPtr, void* des
 
 }
 
-static status_t screenShotToBuffer(sp<IBinder>& display, sp<ABuffer>& buffer) {
+static status_t screenShotToBuffer(sp<IBinder>& display, sp<ABuffer>& buffer, size_t dstSize) {
 
   size_t w, h;
   status_t err;
@@ -146,6 +146,10 @@ static status_t screenShotToBuffer(sp<IBinder>& display, sp<ABuffer>& buffer) {
       //PixelFormat f = screenshot.getFormat();
       //size = screenshot.getSize();
 
+      err = argb8888ToTIYUV420PackedSemiPlanar(srcPtr, dstPtr, w, h, &dstSize);
+
+
+      /*
       ColorConverter colorConverter(OMX_COLOR_Format32bitARGB8888, OMX_TI_COLOR_FormatYUV420PackedSemiPlanar);
       err = colorConverter.convert(srcPtr,
                               w, h,
@@ -153,6 +157,7 @@ static status_t screenShotToBuffer(sp<IBinder>& display, sp<ABuffer>& buffer) {
                               dstPtr,
                               w, h,
                               0, 0, w-1, h-1);
+      */
 
 
   }
@@ -203,6 +208,7 @@ int main() {
   }
 
   size_t inputBufferId;
+  int64_t presentationTimeUs = 0;
 
   for(int i=0;i<50;i++) {
 
@@ -214,10 +220,12 @@ int main() {
      INFO_OUTPUT_BUFFERS_CHANGED
     */
     if(err == OK) {
-      sp<ABuffer> inputBuffer = inputBuffers[inputBufferId];
-      err = screenShotToBuffer(display, inputBuffer);
+      size_t dstSize;
 
-      encoder->queueInputBuffer(inputBufferId, 0, );
+      sp<ABuffer> inputBuffer = inputBuffers[inputBufferId];
+      err = screenShotToBuffer(display, inputBuffer, dstSize);
+
+      encoder->queueInputBuffer(inputBufferId, 0, dstSize, presentationTimeUs, 0);
 
     }
 
