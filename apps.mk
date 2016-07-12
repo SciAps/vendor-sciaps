@@ -10,7 +10,7 @@ $(1): $(call all-java-files-under,$(2))
 	git submodule foreach 'git fetch' && \
 	git submodule foreach 'git clean -d -x -f' && \
 	git submodule update && \
-	echo "Using jdk: $JAVA_HOME" && \
+	echo "Using jdk: $$JAVA_HOME" && \
 	./gradlew clean assemble
 
 include $$(CLEAR_VARS)
