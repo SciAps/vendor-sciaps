@@ -48,9 +48,9 @@ endef
 
 LOCAL_PATH := $(call my-dir)
 
-$(eval $(call downloadapk,\
-	http://jenkins2.sciaps.local/jenkins/job/XRFAndroid/lastStableBuild/artifact/app/build/outputs/apk/app-release.apk, \
-	$(LOCAL_PATH)/XRFAndroid.apk, \
+$(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/XRFAndroid/app/build/outputs/apk/app-release.apk, \
+	$(LOCAL_PATH)/XRFAndroid, \
 	XRFAndroid \
 	))
 
