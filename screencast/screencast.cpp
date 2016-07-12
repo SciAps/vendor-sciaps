@@ -129,7 +129,7 @@ static status_t argb8888ToTIYUV420PackedSemiPlanar(const void* srcPtr, void* des
 
 }
 
-static status_t screenShotToBuffer(sp<IBinder>& display, sp<ABuffer>& buffer, size_t dstSize) {
+static status_t screenShotToBuffer(const sp<IBinder>& display, sp<ABuffer>& buffer, size_t dstSize) {
 
   size_t w, h;
   status_t err;
@@ -164,6 +164,77 @@ static status_t screenShotToBuffer(sp<IBinder>& display, sp<ABuffer>& buffer, si
 
   return err;
 }
+
+class CaptureScreenShotThread : public Thread {
+public:
+  CaptureScreenShotThread(const sp<IBinder> &display, const sp<MediaCodec> encoder)
+  : mDisplay(display),
+    mFramePeriodMicroSec(1000000 / gVideoFPS),
+    mEncoder(encoder),
+    mRunning(false) {
+
+
+  }
+
+  bool threadLoop() {
+
+    status_t err;
+    size_t inputBufferId;
+    size_t bufSize;
+    struct timespec now;
+
+    if(!mRunning) {
+      clock_gettime(CLOCK_MONOTONIC, &now);
+      mStartTime = now;
+
+      err = mEncoder->getInputBuffers(&mInputBuffers);
+      if(err != NO_ERROR) {
+        printf("error: %d", err);
+        return false;
+      }
+
+      mRunning = true;
+    }
+
+    err = mEncoder->dequeueInputBuffer(&inputBufferId, DEFAULT_TIMEOUT);
+    if(err == OK) {
+      sp<ABuffer> inputBuffer = mInputBuffers[inputBufferId];
+      err = screenShotToBuffer(mDisplay, inputBuffer, bufSize);
+
+      clock_gettime(CLOCK_MONOTONIC, &now);
+
+
+      mPresentationTimeUs = toMicroSec(now) - toMicroSec(mStartTime);
+
+      mEncoder->queueInputBuffer(inputBufferId, 0, bufSize, mPresentationTimeUs, 0);
+      mFrameNum++;
+
+
+      int64_t sleepTime = mFramePeriodMicroSec*mFrameNum - mPresentationTimeUs;
+      if(sleepTime > 0) {
+        usleep(sleepTime);
+      }
+    }
+
+    return mRunning;
+  }
+
+private:
+  sp<IBinder> mDisplay;
+  const uint64_t mFramePeriodMicroSec;
+  sp<MediaCodec> mEncoder;
+  struct timespec mStartTime;
+  int64_t mPresentationTimeUs;
+  uint32_t mFrameNum;
+  bool mRunning;
+  Vector< sp<ABuffer> > mInputBuffers;
+
+  static uint64_t toMicroSec(const struct timespec &time) {
+      return time.tv_sec*1000000 + time.tv_nsec / 1000;
+  }
+
+
+};
 
 int main() {
 
