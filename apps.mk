@@ -89,3 +89,9 @@ $(eval $(call gradlebuild,\
 	$(LOCAL_PATH)/LIBZFactoryMode, \
 	LIBZFactoryMode \
 	))
+
+$(eval $(call downloadapk,\
+	http://jenkins2.sciaps.local/jenkins/job/ZebraPrint/lastStableBuild/artifact/ZebraPrint/build/outputs/apk/ZebraPrint-release.apk, \
+	$(LOCAL_PATH)/ZebraPrint.apk, \
+	ZebraPrint \
+	))
