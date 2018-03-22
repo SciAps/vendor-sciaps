@@ -4,7 +4,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := Airdroid
-LOCAL_SRC_FILES := airdroidv2.0.8.apk
+LOCAL_SRC_FILES := AirDroid_4.1.8.0_airdroidhp.apk
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := APPS
 LOCAL_CERTIFICATE := PRESIGNED
