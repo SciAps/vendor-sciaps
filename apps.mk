@@ -49,13 +49,19 @@ endef
 LOCAL_PATH := $(call my-dir)
 
 $(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/RamanAndroid/app/build/outputs/apk/app-release.apk, \
+	$(LOCAL_PATH)/RamanAndroid, \
+	RamanAndroid \
+	))
+
+$(eval $(call gradlebuild,\
 	$(LOCAL_PATH)/XRFAndroid/app/build/outputs/apk/app-release.apk, \
 	$(LOCAL_PATH)/XRFAndroid, \
 	XRFAndroid \
 	))
 
 $(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZAlloyMatch/SciapsLIBS/build/outputs/apk/SciapsLIBS-libz500-hardware-release.apk, \
+	$(LOCAL_PATH)/LIBZAlloyMatch/SciapsLIBS/build/outputs/apk/SciapsLIBS-release.apk, \
 	$(LOCAL_PATH)/LIBZAlloyMatch, \
 	LIBZAlloyMatch \
 	))
@@ -63,25 +69,25 @@ $(eval $(call gradlebuild,\
 $(eval $(call gradlebuild,\
 	$(LOCAL_PATH)/Updater/app/build/outputs/apk/app-release.apk, \
 	$(LOCAL_PATH)/Updater, \
-	LIBZUpdater \
+	Updater \
 	))
 
 $(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libzArgon-release.apk, \
+	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libz-release.apk, \
 	$(LOCAL_PATH)/LIBZHome, \
-	SciapsLIBZHomeZ500 \
+	SciapsLIBZHome \
+	))
+
+$(eval $(call gradlebuild,\
+	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-raman-release.apk, \
+	$(LOCAL_PATH)/LIBZHome, \
+	SciapsRamanHome \
 	))
 
 $(eval $(call downloadapk,\
 	http://jenkins2.sciaps.local/jenkins/job/SciapsHome/lastStableBuild/artifact/app/build/outputs/apk/app-xrf-release.apk, \
 	$(LOCAL_PATH)/SciapsHome-XRF.apk, \
 	SciapsXRFHome \
-	))
-
-$(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZAlloySpec/spec/build/outputs/apk/spec-release.apk, \
-	$(LOCAL_PATH)/LIBZAlloySpec, \
-	LIBZAlloySpec \
 	))
 
 $(eval $(call gradlebuild,\
