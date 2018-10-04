@@ -54,9 +54,9 @@ $(eval $(call gradlebuild,\
 	RamanAndroid \
 	))
 
-$(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/XRFAndroid/app/build/outputs/apk/app-release.apk, \
-	$(LOCAL_PATH)/XRFAndroid, \
+$(eval $(call downloadapk,\
+	https://s3.us-east-2.amazonaws.com/sciaps-firmware-dependencies/xrf_v3.2.apk, \
+	$(LOCAL_PATH)/XRFAndroid.apk, \
 	XRFAndroid \
 	))
 
