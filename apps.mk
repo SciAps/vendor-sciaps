@@ -101,3 +101,9 @@ $(eval $(call downloadapk,\
 	$(LOCAL_PATH)/ZebraPrint.apk, \
 	ZebraPrint \
 	))
+
+$(eval $(call downloadapk,\
+	https://s3.us-east-2.amazonaws.com/sciaps-firmware-dependencies/sciaps_alogcat_v1.0.apk, \
+	$(LOCAL_PATH)/aLogCat.apk, \
+	aLogCat \
+	))
