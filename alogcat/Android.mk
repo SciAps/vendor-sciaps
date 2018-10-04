@@ -4,7 +4,7 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := aLogCat
-LOCAL_SRC_FILES := sciaps_alogcat_v1.0.apk
+LOCAL_SRC_FILES := aLogCat.apk
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := APPS
 LOCAL_CERTIFICATE := PRESIGNED
