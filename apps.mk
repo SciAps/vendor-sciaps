@@ -48,12 +48,6 @@ endef
 
 LOCAL_PATH := $(call my-dir)
 
-$(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/RamanAndroid/app/build/outputs/apk/app-release.apk, \
-	$(LOCAL_PATH)/RamanAndroid, \
-	RamanAndroid \
-	))
-
 $(eval $(call downloadapk,\
 	https://s3.us-east-2.amazonaws.com/sciaps-firmware-dependencies/xrf_v3.2.apk, \
 	$(LOCAL_PATH)/XRFAndroid.apk, \
@@ -76,12 +70,6 @@ $(eval $(call gradlebuild,\
 	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libz-release.apk, \
 	$(LOCAL_PATH)/LIBZHome, \
 	SciapsLIBZHome \
-	))
-
-$(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-raman-release.apk, \
-	$(LOCAL_PATH)/LIBZHome, \
-	SciapsRamanHome \
 	))
 
 $(eval $(call downloadapk,\
