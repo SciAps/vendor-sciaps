@@ -67,7 +67,7 @@ $(eval $(call gradlebuild,\
 	))
 
 $(eval $(call gradlebuild,\
-	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libz-release.apk, \
+	$(LOCAL_PATH)/LIBZHome/app/build/outputs/apk/app-libzNoArgon-debug.apk, \
 	$(LOCAL_PATH)/LIBZHome, \
 	SciapsLIBZHome \
 	))
