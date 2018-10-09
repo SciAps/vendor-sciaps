@@ -16,5 +16,5 @@ include $(BUILD_PREBUILT)
 
 
 $(THE_APK):
-	curl -o $@ http://jenkins.sciaps.local/job/LIBSSettingsApp/lastSuccessfulBuild/artifact/mainSettingsApp/build/apk/mainSettingsApp-debug-unaligned.apk
+	curl -o $@ https://s3.us-east-2.amazonaws.com/sciaps-firmware-dependencies/mainSettingsApp-debug-unaligned.apk
 
